@@ -19,7 +19,7 @@ route:
         severity: warning
       receiver: 'default-receiver'
 receivers:
-- name: 'default-receiver'
+- name: 'default-receiver' 
   email_configs:
   - to: 'kakuzofa@gmail.com'
     send_resolved: true
