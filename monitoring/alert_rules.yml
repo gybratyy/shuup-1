@@ -2,7 +2,7 @@ groups:
 - name: error_rate_rules
   rules:
   - alert: HighHTTP404ErrorRate
-    expr: rate(django_http_responses_total_by_status_total{status="404"}[5m]) / rate((django_http_responses_total_by_status_total[5m]) > 0.01
+    expr: rate(django_http_responses_total_by_status_total{status="404"}[5m]) / rate(django_http_responses_total_by_status_total[5m]) > 0.01
     for: 5m
     labels:
       severity: critical
@@ -13,18 +13,18 @@ groups:
 - name: cpu_usage_rules
   rules:
   - alert: HighCpuUsage
-    expr: rate(process_cpu_seconds_total{job="shuup"}[$__rate_interval]) * 100 > 70
+    expr: rate(process_cpu_seconds_total{job="shuup"}[5m]) * 100 > 70
     for: 5m
     labels:
       severity: warning
     annotations:
       summary: High CPU usage
-      description: 'More than 70% of CPU is being used for more than 5 minutes.'
+      description: 'CPU usage is above 70% for more than 5 minutes.'
   - alert: VeryHighCpuUsage
-    expr: rate(process_cpu_seconds_total{job="shuup"}[$__rate_interval]) * 100 > 80
+    expr: rate(process_cpu_seconds_total{job="shuup"}[5m]) * 100 > 80
     for: 5m
     labels:
       severity: critical
     annotations:
       summary: Very high CPU usage
-      description: 'More than 80% of CPU is being used for more than 5 minutes.'
+      description: 'CPU usage is above 80% for more than 5 minutes.'
