@@ -8,3 +8,24 @@ services:
       - "8000:8000"
     tty: true
     restart: unless-stopped
+
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"  # Adjust ports as needed
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./monitoring/alert_rules.yml:/etc/prometheus/alert_rules.yml  # Mount Prometheus configuration
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"  # Adjust ports as needed
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./monitoring/alertmanager.yml:/etc/alertmanager/alertmanager.yml
