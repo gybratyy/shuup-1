@@ -11,7 +11,13 @@ route:
   group_interval: 5m
   repeat_interval: 1h
   receiver: 'default-receiver'
-
+  routes:
+    - match:
+        severity: critical
+      receiver: 'default-receiver'
+    - match:
+        severity: warning
+      receiver: 'default-receiver'
 receivers:
 - name: 'default-receiver'
   email_configs:
